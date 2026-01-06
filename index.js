@@ -14,44 +14,51 @@ function getHumanChoice(){
 
 function playRound(humanChoice, computerChoice){
     if(humanChoice === computerChoice) {
-        console.log("Draw! Play Again?");
+        resDiv.innerText = "Draw! Play Again?";
         return;
     }   
 
     if(humanChoice === "scissors"){
         if(computerChoice === "rock"){
             computerScore++;
-            console.log("You lost! rock beats scissors.");
+            resDiv.innerText = "You lost! rock beats scissors.";
         } else{
             humanScore++;
-            console.log("You won! scissors beats paper.");
+            resDiv.innerText = "You won! scissors beats paper.";
         }
     } else if(humanChoice === "rock"){
         if(computerChoice === "paper"){
             computerScore++;
-            console.log("You lost! paper beats rock.");
+            resDiv.innerText = "You lost! paper beats rock.";
         } else{
             humanScore++;
-            console.log("You won! rock beats scissors.");
+            resDiv.innerText = "You won! rock beats scissors.";
         }
     } else{
         if(computerChoice === "scissors"){
             computerScore++;
-            console.log("You lost! scissors beats paper.");
+            resDiv.innerText = "You lost! scissors beats paper.";
         } else{
             humanScore++;
-            console.log("You won! paper beats rock.");
+            resDiv.innerText = "You won! paper beats rock.";
         }
     }
+
+    humanScoreDiv.innerText = `Your Score: ${humanScore}`;
+    computerScoreDiv.innerText = `Computer's Score: ${computerScore}`;
 }
 
-function playGame(){
-    for(let i = 0; i < 5; i++) playRound(getHumanChoice(), getComputerChoice());
+const buttons = document.querySelectorAll("button");
+const resDiv = document.querySelector("#res");
+const humanScoreDiv = document.querySelector("#human-score");
+const computerScoreDiv = document.querySelector("#computer-score");
 
-    if(humanScore > computerScore) console.log("You Won! GGs!");
-    else if(humanScore < computerScore) console.log("You Lost! Refresh to play again!");
-    else console.log("Draw! Come on!");
-}
+buttons.forEach(btn => {
+    const curHumanChoice = btn.innerText.toLowerCase();
+    btn.addEventListener("click", () => {
+        playRound(curHumanChoice, getComputerChoice());
+    })
+});
 
-playGame();
+
 
